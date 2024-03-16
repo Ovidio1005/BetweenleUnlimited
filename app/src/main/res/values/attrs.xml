@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BoxedCharacters">
+        <!-- TODO: figure out how to use the 'dimension' format -->
+        <attr name="boxSizeDp" format="integer"/>
+        <attr name="boxType" format="enum">
+            <enum name="outlined" value="1"/>
+            <enum name="green" value="2"/>
+            <enum name="blue" value="3"/>
+            <enum name="yellow" value="4"/>
+        </attr>
+        <attr name="text" format="string"/>
+    </declare-styleable>
+    <declare-styleable name="RangeIndicator">
+        <attr name="widthDp" format="float"/>
+        <attr name="secretFraction" format="float"/>
+        <attr name="topFraction" format="float"/>
+        <attr name="bottomFraction" format="float"/>
+    </declare-styleable>
+    <declare-styleable name="Key">
+        <attr name="character" format="enum">
+            <enum name="A"  value="1"/>
+            <enum name="B"  value="2"/>
+            <enum name="C"  value="3"/>
+            <enum name="D"  value="4"/>
+            <enum name="E"  value="5"/>
+            <enum name="F"  value="6"/>
+            <enum name="G"  value="7"/>
+            <enum name="H"  value="8"/>
+            <enum name="I"  value="9"/>
+            <enum name="J"  value="10"/>
+            <enum name="K"  value="11"/>
+            <enum name="L"  value="12"/>
+            <enum name="M"  value="13"/>
+            <enum name="N"  value="14"/>
+            <enum name="O"  value="15"/>
+            <enum name="P"  value="16"/>
+            <enum name="Q"  value="17"/>
+            <enum name="R"  value="18"/>
+            <enum name="S"  value="19"/>
+            <enum name="T"  value="20"/>
+            <enum name="U"  value="21"/>
+            <enum name="V"  value="22"/>
+            <enum name="W"  value="23"/>
+            <enum name="X"  value="24"/>
+            <enum name="Y"  value="25"/>
+            <enum name="Z"  value="26"/>
+            <enum name="ENTER" value="27"/>
+            <enum name="BACKSPACE" value="28"/>
+        </attr>
+    </declare-styleable>
+</resources>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.GameFragment">
+
+    <com.ovidiu.betweenleunlimited.Components.Score
+        android:id="@+id/score"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/score">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.ovidiu.betweenleunlimited.Components.RangeIndicator
+                android:id="@+id/rangeIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:widthDp="40" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.ovidiu.betweenleunlimited.Components.BoxedCharacters
+                    android:id="@+id/tvEarlyWord"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:boxSizeDp="48"
+                    app:boxType="blue"
+                    app:text="AAAAA" />
+
+                <com.ovidiu.betweenleunlimited.Components.BoxedCharacters
+                    android:id="@+id/tvPlayerWord"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    app:boxSizeDp="48" />
+
+                <com.ovidiu.betweenleunlimited.Components.BoxedCharacters
+                    android:id="@+id/tvLateWord"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:boxSizeDp="48"
+                    app:boxType="blue"
+                    app:text="ZZZZZ" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.ovidiu.betweenleunlimited.Components.Alphabet
+            android:id="@+id/alphabet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp" />
+
+        <com.ovidiu.betweenleunlimited.Components.Keyboard
+            android:id="@+id/keyboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

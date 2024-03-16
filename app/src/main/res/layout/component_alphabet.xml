@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/row1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="A"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="B"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="C"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="D"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="E"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="F"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="G"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="H"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="I"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="J"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="K"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="L"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="M"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/row2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="N"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="O"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="P"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="Q"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="R"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="S"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="T"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="U"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="V"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="W"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="X"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="Y"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/alphabet_on"
+            android:gravity="center"
+            android:text="Z"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textSize="16dp" />
+
+
+    </LinearLayout>
+</LinearLayout>

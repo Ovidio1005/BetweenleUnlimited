@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/row1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="Q" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="W" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="E" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="R" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="T" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="Y" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="U" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="I" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="O" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="P" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/row2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="A" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="S" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="D" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="F" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="G" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="H" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="J" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="K" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="L" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/row3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            android:layout_width="56dp"
+            android:textSize="14dp"
+            app:character="ENTER" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="Z" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="X" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="C" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="V" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="B" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="N" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            app:character="M" />
+
+        <com.ovidiu.betweenleunlimited.Components.Key
+            style="@style/KeyStyle"
+            android:layout_width="56dp"
+            android:textSize="14dp"
+            app:character="BACKSPACE" />
+
+    </LinearLayout>
+</LinearLayout>
