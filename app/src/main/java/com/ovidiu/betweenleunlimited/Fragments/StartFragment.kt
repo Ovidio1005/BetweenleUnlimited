@@ -28,5 +28,12 @@ class StartFragment : Fragment() {
                 findNavController().navigate(R.id.action_play)
             }
         }
+
+        view.findViewById<Button>(R.id.btnDaily).setOnClickListener {
+            with(activity as MainActivity){
+                wordsLoader.join()
+                findNavController().navigate(R.id.action_daily)
+            }
+        }
     }
 }

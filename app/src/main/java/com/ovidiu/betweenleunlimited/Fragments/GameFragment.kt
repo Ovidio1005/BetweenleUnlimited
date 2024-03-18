@@ -1,10 +1,15 @@
 package com.ovidiu.betweenleunlimited.Fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.ovidiu.betweenleunlimited.Components.Alphabet
 import com.ovidiu.betweenleunlimited.Components.BoxedCharacters
@@ -12,23 +17,25 @@ import com.ovidiu.betweenleunlimited.Components.Key
 import com.ovidiu.betweenleunlimited.Components.Keyboard
 import com.ovidiu.betweenleunlimited.Components.RangeIndicator
 import com.ovidiu.betweenleunlimited.Components.Score
+import com.ovidiu.betweenleunlimited.Components.StatsView
 import com.ovidiu.betweenleunlimited.R
+import com.ovidiu.betweenleunlimited.Utils.PreferenceHelper
 import com.ovidiu.betweenleunlimited.Utils.WordList
 
-class GameFragment : Fragment() {
-    private lateinit var rootView : View
+open class GameFragment : Fragment() {
+    lateinit var rootView : View
 
-    private lateinit var score : Score
-    private lateinit var keyboard : Keyboard
-    private lateinit var alphabet: Alphabet
-    private lateinit var rangeIndicator: RangeIndicator
-    private lateinit var topWordView : BoxedCharacters
-    private lateinit var centerWordView : BoxedCharacters
-    private lateinit var bottomWordView : BoxedCharacters
+    lateinit var score : Score
+    lateinit var keyboard : Keyboard
+    lateinit var alphabet: Alphabet
+    lateinit var rangeIndicator: RangeIndicator
+    lateinit var topWordView : BoxedCharacters
+    lateinit var centerWordView : BoxedCharacters
+    lateinit var bottomWordView : BoxedCharacters
 
-    private lateinit var secretWord : String
-    private lateinit var earlyWord : String
-    private lateinit var lateWord : String
+    lateinit var secretWord : String
+    lateinit var earlyWord : String
+    lateinit var lateWord : String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +61,7 @@ class GameFragment : Fragment() {
         startGame()
     }
 
-    fun startGame(){
+    open fun startGame(){
         secretWord = WordList.randomWord()
         earlyWord = "AAAAA"
         lateWord = "ZZZZZ"
@@ -69,16 +76,16 @@ class GameFragment : Fragment() {
             setAlphabet()
         }
 
-        println("Secret word: ${secretWord.uppercase()}")
+        Log.i("GameFragment", "Secret word: ${secretWord.uppercase()}")
     }
 
-    private fun handleBackspace() {
+    fun handleBackspace() {
         with(centerWordView){
             if(text.isNotEmpty()) text = text.substring(0, text.length - 1)
         }
     }
 
-    private fun handleEnter() {
+    fun handleEnter() {
         val word = centerWordView.text
 
         if(word.length == 5){
@@ -104,34 +111,34 @@ class GameFragment : Fragment() {
         }
     }
 
-    private fun handleKey(key: Int) {
+    fun handleKey(key: Int) {
         with(centerWordView) {
             if (text.length < 5) text += Key.getChar(key)
         }
     }
 
-    private fun enterWord(word : String){
+    fun enterWord(word : String){
         with(WordList) {
             if(compare(word, secretWord) == 0) win()
             else{
                 if (compare(word, secretWord) < 0) earlyWord = word
                 else lateWord = word
 
-                if(score.currentGuess < 14){
-                    topWordView.text = earlyWord
-                    bottomWordView.text = lateWord
-                    centerWordView.text = ""
+                topWordView.text = earlyWord
+                bottomWordView.text = lateWord
+                centerWordView.text = ""
 
-                    score.currentGuess++
+                rangeIndicator.topFraction = getPositionFraction(earlyWord)
+                rangeIndicator.bottomFraction = getPositionFraction(lateWord)
 
-                    rangeIndicator.topFraction = getPositionFraction(earlyWord)
-                    rangeIndicator.bottomFraction = getPositionFraction(lateWord)
-                } else lose()
+                score.currentGuess++
+
+                if(score.currentGuess > 14) lose()
             }
         }
     }
 
-    private fun setAlphabet(){
+    fun setAlphabet(){
         val nextLetterIndex = centerWordView.text.length // The index of the next letter the player will input
 
         if(nextLetterIndex < 5){
@@ -150,12 +157,50 @@ class GameFragment : Fragment() {
         }
     }
 
-    private fun win(){
+    open fun win(){
         centerWordView.boxType = BoxedCharacters.GREEN
         keyboard.setOnKeyPressListener(null)
+
+        with(PreferenceHelper){
+            endlessCurrentStreak++ // also sets best streak if appropriate
+
+            when(score.score){
+                5 -> endless5point++
+                4 -> endless4point++
+                3 -> endless3point++
+                2 -> endless2point++
+                1 -> endless1point++
+                else -> Log.wtf("GameFragment", "Called win() with score=${score.score}")
+            }
+        }
+
+        showEndDialog()
     }
 
-    private fun lose(){
-        // TODO
+    open fun lose(){
+        centerWordView.visibility = View.INVISIBLE
+        keyboard.setOnKeyPressListener(null)
+
+        with(PreferenceHelper){
+            endlessCurrentStreak = 0
+
+            if(score.score == 0) endlessLosses++
+            else Log.wtf("GameFragment", "Called lose() with score=${score.score}")
+        }
+
+        showEndDialog()
+    }
+
+    open fun showEndDialog(){
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+            .setView(R.layout.dialog_end)
+            .show()
+
+        dialog.findViewById<StatsView>(R.id.stats)?.type = StatsView.ENDLESS
+        dialog.findViewById<Button>(R.id.btnClose)?.setOnClickListener { dialog.dismiss() }
+        dialog.findViewById<Button>(R.id.btnHome)?.setOnClickListener { dialog.dismiss(); findNavController().navigateUp() }
+
+        dialog.findViewById<TextView>(R.id.tvTitle)?.text = if(score.score > 0) "WIN" else secretWord.uppercase()
+        dialog.findViewById<TextView>(R.id.tvResult)?.text = if(score.score > 0) "${score.score} / 5" else "LOSS"
     }
 }

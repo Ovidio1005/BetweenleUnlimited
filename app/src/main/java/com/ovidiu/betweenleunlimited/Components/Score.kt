@@ -15,7 +15,7 @@ class Score(context: Context, attributeSet: AttributeSet?) : LinearLayout(contex
 
     var currentGuess = 1
         set(value) {
-            field = if(value in 1..14) value else if(value < 1) 1 else 14
+            field = value
             setViews()
         }
 
@@ -47,10 +47,10 @@ class Score(context: Context, attributeSet: AttributeSet?) : LinearLayout(contex
         tvScore.text = "$score / 5"
 
         for(i in 1..<currentGuess){
-            dots[i-1].setBackgroundResource(R.drawable.circle_blue)
+            if(i < dots.size) dots[i-1].setBackgroundResource(R.drawable.circle_blue)
         }
 
-        dots[currentGuess-1].setBackgroundResource(R.drawable.circle_yellow)
+        if(currentGuess-1 < dots.size) dots[currentGuess-1].setBackgroundResource(R.drawable.circle_yellow)
 
         for(i in currentGuess+1..14){
             dots[i-1].setBackgroundResource(R.drawable.circle_grey)

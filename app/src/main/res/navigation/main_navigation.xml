@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_tutorial"
             app:destination="@id/tutorialFragment" />
+        <action
+            android:id="@+id/action_daily"
+            app:destination="@id/dailyFragment" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
@@ -27,4 +30,8 @@
         android:name="com.ovidiu.betweenleunlimited.Fragments.TutorialFragment"
         android:label="fragment_tutorial"
         tools:layout="@layout/fragment_tutorial" />
+    <fragment
+        android:id="@+id/dailyFragment"
+        android:name="com.ovidiu.betweenleunlimited.Fragments.DailyFragment"
+        android:label="DailyFragment" />
 </navigation>
