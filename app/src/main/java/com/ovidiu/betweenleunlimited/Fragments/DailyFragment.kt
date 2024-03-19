@@ -2,10 +2,7 @@ package com.ovidiu.betweenleunlimited.Fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
@@ -16,25 +13,37 @@ import com.ovidiu.betweenleunlimited.Components.StatsView
 import com.ovidiu.betweenleunlimited.R
 import com.ovidiu.betweenleunlimited.Utils.PreferenceHelper
 import com.ovidiu.betweenleunlimited.Utils.WordList
+import java.util.Calendar
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DailyFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DailyFragment : GameFragment() {
-    // TODO: prevent player from retrying daily (resume from last guess / immediately show end screen)
-    override fun startGame(){
-        secretWord = WordList.dailyWord()
-        earlyWord = "AAAAA"
-        lateWord = "ZZZZZ"
+    val date = Calendar.getInstance()
 
-        rangeIndicator.secretFraction = WordList.getPositionFraction(secretWord)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        rootView.findViewById<Button>(R.id.btnGiveUp).visibility = View.GONE
+    }
+
+    override fun startGame(){
+        with(PreferenceHelper) {
+            val yesterday = date.clone() as Calendar
+            yesterday.add(Calendar.DAY_OF_MONTH, -1)
+
+            // Player loses streak if they skip a day
+            if(dailyDate == null || dailyDate!! < formatCalendar(yesterday)) dailyCurrentStreak = 0
+
+            if (dailySecretWord != null && dailyDate == formatCalendar(
+                    date
+                )
+            ) loadGame()
+            else {
+                secretWord = WordList.dailyWord()
+                earlyWord = "AAAAA"
+                lateWord = "ZZZZZ"
+
+                rangeIndicator.secretFraction = WordList.getPositionFraction(secretWord)
+            }
+        }
 
         keyboard.setOnKeyPressListener { key ->
             if(key == Key.ENTER) handleEnter()
@@ -45,6 +54,46 @@ class DailyFragment : GameFragment() {
         }
 
         Log.i("GameFragment", "Secret word: ${secretWord.uppercase()}")
+    }
+
+    override fun loadGame(){
+        secretWord = PreferenceHelper.dailySecretWord!!
+        earlyWord = PreferenceHelper.dailyTopWord ?: "AAAAA"
+        topWordView.text = earlyWord
+        lateWord = PreferenceHelper.dailyBottomWord ?: "ZZZZZ"
+        bottomWordView.text = lateWord
+
+        rangeIndicator.secretFraction = WordList.getPositionFraction(secretWord)
+        rangeIndicator.topFraction = WordList.getPositionFraction(earlyWord)
+        rangeIndicator.bottomFraction = WordList.getPositionFraction(lateWord)
+
+        score.currentGuess = PreferenceHelper.dailyCurrentGuess!!
+
+        if(PreferenceHelper.dailyResult > 0){
+            centerWordView.text = secretWord
+            centerWordView.boxType = BoxedCharacters.GREEN
+            keyboard.setOnKeyPressListener(null)
+
+            showEndDialog(true)
+        } else if(PreferenceHelper.dailyResult == 0){
+            centerWordView.visibility = View.INVISIBLE
+            keyboard.setOnKeyPressListener(null)
+
+            showEndDialog(false)
+        }
+
+        setAlphabet()
+    }
+
+    override fun saveGame(){
+        with(PreferenceHelper) {
+            dailySecretWord = secretWord
+            dailyTopWord = earlyWord
+            dailyBottomWord = lateWord
+            dailyCurrentGuess = score.currentGuess
+            dailyDate = formatCalendar(date)
+            dailyResult = -1
+        }
     }
 
     override fun win(){
@@ -62,9 +111,11 @@ class DailyFragment : GameFragment() {
                 1 -> daily1point++
                 else -> Log.wtf("GameFragment", "Called win() with score=${score.score}")
             }
+
+            dailyResult = score.score
         }
 
-        showEndDialog()
+        showEndDialog(true)
     }
 
     override fun lose(){
@@ -75,13 +126,15 @@ class DailyFragment : GameFragment() {
             dailyCurrentStreak = 0
 
             if(score.score == 0) dailyLosses++
-            else Log.wtf("GameFragment", "Called lose() with score=${score.score}")
+            else Log.wtf("GameFragment", "Called lose() in daily with score=${score.score}")
+
+            dailyResult = 0
         }
 
-        showEndDialog()
+        showEndDialog(false)
     }
 
-    override fun showEndDialog(){
+    override fun showEndDialog(isWin : Boolean){
         val dialog = MaterialAlertDialogBuilder(requireContext())
             .setView(R.layout.dialog_end)
             .show()
@@ -90,7 +143,11 @@ class DailyFragment : GameFragment() {
         dialog.findViewById<Button>(R.id.btnClose)?.setOnClickListener { dialog.dismiss() }
         dialog.findViewById<Button>(R.id.btnHome)?.setOnClickListener { dialog.dismiss(); findNavController().navigateUp() }
 
-        dialog.findViewById<TextView>(R.id.tvTitle)?.text = if(score.score > 0) "WIN" else secretWord.uppercase()
-        dialog.findViewById<TextView>(R.id.tvResult)?.text = if(score.score > 0) "${score.score} / 5" else "LOSS"
+        dialog.findViewById<TextView>(R.id.tvTitle)?.text = if(isWin) "WIN" else secretWord.uppercase()
+        dialog.findViewById<TextView>(R.id.tvResult)?.text = if(isWin) "${score.score} / 5" else "LOSS"
+    }
+
+    private fun formatCalendar(c : Calendar) : String {
+        return String.format("%04d%02d%02d", c[Calendar.YEAR], c[Calendar.MONTH] + 1, c[Calendar.DAY_OF_MONTH])
     }
 }

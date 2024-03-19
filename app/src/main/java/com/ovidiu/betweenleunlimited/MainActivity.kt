@@ -16,6 +16,7 @@ import com.ovidiu.betweenleunlimited.Utils.WordList
 
 // TODO bug fixes:
 //  Game resets on activity restart (eg. screen rotation)
+//  WordList.unsortedIsSubsetOfSorted tells me 'aback' is not in the valid words, but it is
 
 class MainActivity : AppCompatActivity() {
     lateinit var wordsLoader : Thread

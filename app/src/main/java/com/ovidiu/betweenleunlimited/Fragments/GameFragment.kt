@@ -45,7 +45,7 @@ open class GameFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_game, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    open override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         rootView = view
@@ -58,15 +58,26 @@ open class GameFragment : Fragment() {
         centerWordView = rootView.findViewById(R.id.tvPlayerWord)
         bottomWordView = rootView.findViewById(R.id.tvLateWord)
 
+        rootView.findViewById<Button>(R.id.btnGiveUp).setOnClickListener {
+            MaterialAlertDialogBuilder(requireContext())
+                .setMessage("Are you sure you want to give up?")
+                .setPositiveButton("Yes") { dialog, _ -> dialog.dismiss(); lose() }
+                .setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
+                .show()
+        }
+
         startGame()
     }
 
     open fun startGame(){
-        secretWord = WordList.randomWord()
-        earlyWord = "AAAAA"
-        lateWord = "ZZZZZ"
+        if(PreferenceHelper.endlessSecretWord != null) loadGame()
+        else{
+            secretWord = WordList.randomWord()
+            earlyWord = "AAAAA"
+            lateWord = "ZZZZZ"
 
-        rangeIndicator.secretFraction = WordList.getPositionFraction(secretWord)
+            rangeIndicator.secretFraction = WordList.getPositionFraction(secretWord)
+        }
 
         keyboard.setOnKeyPressListener { key ->
             if(key == Key.ENTER) handleEnter()
@@ -77,6 +88,31 @@ open class GameFragment : Fragment() {
         }
 
         Log.i("GameFragment", "Secret word: ${secretWord.uppercase()}")
+    }
+
+    open fun loadGame(){
+        secretWord = PreferenceHelper.endlessSecretWord!!
+        earlyWord = PreferenceHelper.endlessTopWord ?: "AAAAA"
+        topWordView.text = earlyWord
+        lateWord = PreferenceHelper.endlessBottomWord ?: "ZZZZZ"
+        bottomWordView.text = lateWord
+
+        rangeIndicator.secretFraction = WordList.getPositionFraction(secretWord)
+        rangeIndicator.topFraction = WordList.getPositionFraction(earlyWord)
+        rangeIndicator.bottomFraction = WordList.getPositionFraction(lateWord)
+
+        score.currentGuess = PreferenceHelper.endlessCurrentGuess!!
+
+        setAlphabet()
+    }
+
+    open fun saveGame(){
+        with(PreferenceHelper) {
+            endlessSecretWord = secretWord
+            endlessTopWord = earlyWord
+            endlessBottomWord = lateWord
+            endlessCurrentGuess = score.currentGuess
+        }
     }
 
     fun handleBackspace() {
@@ -134,6 +170,7 @@ open class GameFragment : Fragment() {
                 score.currentGuess++
 
                 if(score.currentGuess > 14) lose()
+                else saveGame()
             }
         }
     }
@@ -172,9 +209,11 @@ open class GameFragment : Fragment() {
                 1 -> endless1point++
                 else -> Log.wtf("GameFragment", "Called win() with score=${score.score}")
             }
+
+            endlessSecretWord = null
         }
 
-        showEndDialog()
+        showEndDialog(true)
     }
 
     open fun lose(){
@@ -183,15 +222,15 @@ open class GameFragment : Fragment() {
 
         with(PreferenceHelper){
             endlessCurrentStreak = 0
+            endlessLosses++
 
-            if(score.score == 0) endlessLosses++
-            else Log.wtf("GameFragment", "Called lose() with score=${score.score}")
+            endlessSecretWord = null
         }
 
-        showEndDialog()
+        showEndDialog(false)
     }
 
-    open fun showEndDialog(){
+    open fun showEndDialog(isWin : Boolean){
         val dialog = MaterialAlertDialogBuilder(requireContext())
             .setView(R.layout.dialog_end)
             .show()
@@ -200,7 +239,7 @@ open class GameFragment : Fragment() {
         dialog.findViewById<Button>(R.id.btnClose)?.setOnClickListener { dialog.dismiss() }
         dialog.findViewById<Button>(R.id.btnHome)?.setOnClickListener { dialog.dismiss(); findNavController().navigateUp() }
 
-        dialog.findViewById<TextView>(R.id.tvTitle)?.text = if(score.score > 0) "WIN" else secretWord.uppercase()
-        dialog.findViewById<TextView>(R.id.tvResult)?.text = if(score.score > 0) "${score.score} / 5" else "LOSS"
+        dialog.findViewById<TextView>(R.id.tvTitle)?.text = if(isWin) "WIN" else secretWord.uppercase()
+        dialog.findViewById<TextView>(R.id.tvResult)?.text = if(isWin) "${score.score} / 5" else "LOSS"
     }
 }

@@ -157,7 +157,7 @@ fun List<String>.unsortedIsSubsetOfSorted(other : List<String>) : Boolean {
     for(word in this){
         for(i in other.indices){
             if(word == other[i]) break
-            else if(word > other[i]) return false
+            else if(word > other[i]) return false.also { println("$word not in other. Check: ${word !in other}") }
         }
     }
 

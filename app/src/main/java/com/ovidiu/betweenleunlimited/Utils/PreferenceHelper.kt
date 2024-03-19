@@ -6,9 +6,12 @@ import android.content.SharedPreferences
 object PreferenceHelper {
     private const val sharedPrefsName = "BetweenleUnlimitedPrefs"
     private lateinit var prefs : SharedPreferences
+
     fun init(context : Context){
         prefs = context.getSharedPreferences(sharedPrefsName, Context.MODE_PRIVATE)
     }
+
+    // --- ENDLESS ---
 
     var endless5point : Int
         get() = prefs.getInt("endless5point", 0)
@@ -55,6 +58,30 @@ object PreferenceHelper {
     val endlessWinPercentage : Float
         get() = (endlessTotalWins.toFloat() / endlessTotalGames.toFloat()) * 100
 
+    // --- Saved game state ---
+
+    /**
+     * This value should be set to null if there's no save data.
+     * If it isn't null, all other fields shouldn't be null either
+     */
+    var endlessSecretWord : String?
+        get() = prefs.getString("endlessSecretWord", null)
+        set(value) = prefs.edit().putString("endlessSecretWord", value).apply()
+
+    var endlessTopWord : String?
+        get() = prefs.getString("endlessTopWord", null)
+        set(value) = prefs.edit().putString("endlessTopWord", value).apply()
+
+    var endlessBottomWord : String?
+        get() = prefs.getString("endlessBottomWord", null)
+        set(value) = prefs.edit().putString("endlessBottomWord", value).apply()
+
+    var endlessCurrentGuess : Int?
+        get() = prefs.getInt("endlessCurrentGuess", -1).takeIf { g -> g > 0 }
+        set(value) = if(value == null) prefs.edit().remove("endlessCurrentGuess").apply() else prefs.edit().putInt("endlessCurrentGuess", value).apply()
+
+    // --- DAILY ---
+
     var daily5point : Int
         get() = prefs.getInt("daily5point", 0)
         set(value) = prefs.edit().putInt("daily5point", value).apply()
@@ -99,4 +126,37 @@ object PreferenceHelper {
 
     val dailyWinPercentage : Float
         get() = (dailyTotalWins.toFloat() / dailyTotalGames.toFloat()) * 100
+
+    // --- Saved game state ---
+
+    /**
+     * This value should be set to null if there's no save data.
+     * If it isn't null, all other fields shouldn't be null either
+     */
+    var dailySecretWord : String?
+        get() = prefs.getString("dailySecretWord", null)
+        set(value) = prefs.edit().putString("dailySecretWord", value).apply()
+
+    var dailyTopWord : String?
+        get() = prefs.getString("dailyTopWord", null)
+        set(value) = prefs.edit().putString("dailyTopWord", value).apply()
+
+    var dailyBottomWord : String?
+        get() = prefs.getString("dailyBottomWord", null)
+        set(value) = prefs.edit().putString("dailyBottomWord", value).apply()
+
+    var dailyCurrentGuess : Int?
+        get() = prefs.getInt("dailyCurrentGuess", -1).takeIf { g -> g > 0 }
+        set(value) = if(value == null) prefs.edit().remove("dailyCurrentGuess").apply() else prefs.edit().putInt("dailyCurrentGuess", value).apply()
+
+    var dailyDate : String?
+        get() = prefs.getString("dailyDate", null)
+        set(value) = prefs.edit().putString("dailyDate", value).apply()
+
+    /**
+     * Score for the saved daily game (0 = loss) or -1 if the game wasn't finished yet
+     */
+    var dailyResult : Int
+        get() = prefs.getInt("dailyResult", -1)
+        set(value) = prefs.edit().putInt("dailyResult", value).apply()
 }
